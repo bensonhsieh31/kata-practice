@@ -20,4 +20,16 @@ class GildedRoseTest {
 		assertEquals(expectedQuality, actualItem.quality);
 	}
 
+	@ParameterizedTest
+	@CsvSource(value = { 
+			"10; 8",
+			"0; 0",
+			}, delimiter = ';')
+	void item_foo_sellin_expired_update_quality_success(int itemQuality, int expectedQuality) {
+		Item[] items = new Item[] { new Item("foo", 0, itemQuality) };
+		GildedRose app = new GildedRose(items);
+		app.updateQuality();
+		Item actualItem = app.items[0];
+		assertEquals(expectedQuality, actualItem.quality);
+	}
 }
